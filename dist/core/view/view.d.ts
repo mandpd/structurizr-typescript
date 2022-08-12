@@ -1,0 +1,37 @@
+import { SoftwareSystem } from "../model/softwareSystem";
+import { Model } from "../model/model";
+import { ElementView } from "./elementView";
+import { RelationshipView } from "./relationshipView";
+import { Element } from "../model/element";
+import { Relationship } from "../model/relationship";
+import { AutomaticLayout } from "./automaticLayout";
+import { RankDirection } from "./rankDirection";
+import { PaperSize } from "./paperSize";
+export declare abstract class View {
+    key: string;
+    description: string;
+    title: string;
+    softwareSystemId?: string;
+    softwareSystem?: SoftwareSystem;
+    elements: ElementView[];
+    relationships: RelationshipView[];
+    automaticLayout?: AutomaticLayout;
+    paperSize?: PaperSize;
+    get model(): Model;
+    set model(m: Model);
+    abstract get name(): string;
+    constructor(softwareSystem?: SoftwareSystem, key?: string, description?: string);
+    toDto(): any;
+    fromDto(dto: any): void;
+    add(relationship: Relationship): RelationshipView | null;
+    addRelationship(relationship: Relationship, description: string, order: string): RelationshipView | null;
+    isElementInView(element: Element): boolean;
+    remove(relationship: Relationship): void;
+    copyLayoutInformationFrom(source: View): void;
+    setAutomaticLayout(enable: boolean): void;
+    setAutomaticLayout(direction: RankDirection, rankSeparation: number, nodeSeparation: number, edgeSeparation: number, vertices: boolean): void;
+    protected addElement(element: Element, addRelationships: boolean): void;
+    protected removeElement(element: Element): void;
+    private addRelationships;
+    private _addRelationship;
+}

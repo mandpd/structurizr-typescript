@@ -1,0 +1,35 @@
+import { Model } from "../model/model";
+import { SystemContextView } from "./systemContextView";
+import { SoftwareSystem } from "../model/softwareSystem";
+import { View } from "./view";
+import { ContainerView } from "./containerView";
+import { DeploymentView } from "./deploymentView";
+import { ViewConfiguration } from "./viewConfiguration";
+import { ComponentView } from "./componentView";
+import { Container } from "../model/container";
+import { FilteredView, FilterMode } from "./filteredView";
+import { StaticView } from "./staticView";
+export declare class ViewSet {
+    model: Model;
+    systemContextViews: SystemContextView[];
+    containerViews: ContainerView[];
+    componentViews: ComponentView[];
+    deploymentViews: DeploymentView[];
+    filteredViews: FilteredView[];
+    configuration: ViewConfiguration;
+    constructor(model: Model);
+    createSystemContextView(softwareSystem: SoftwareSystem, key: string, description: string): SystemContextView;
+    createContainerView(softwareSystem: SoftwareSystem, key: string, description: string): ContainerView;
+    createComponentView(container: Container, key: string, description: string): ComponentView;
+    createDeploymentView(key: string, description: string, softwareSystem?: SoftwareSystem): DeploymentView;
+    createFilteredView(view: StaticView, key: string, description: string, mode: FilterMode, ...tags: string[]): FilteredView;
+    toDto(): any;
+    fromDto(dto: any): void;
+    hydrate(): void;
+    copyLayoutInformationFrom(source: ViewSet): void;
+    getViewWithKey(key: string): View | undefined;
+    private assertThatTheViewKeyIsUnique;
+    private static findView;
+    private hydrateView;
+    private viewsFromDto;
+}

@@ -1,5 +1,5 @@
 node_modules/
-dist/
+# removed dist while pointing to this from my source
 sample/node_modules/
 sample/dist/
 .env
